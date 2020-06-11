@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
-const { check, validationResult } = require('express-validator/check');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+const { check, validationResult } = require('express-validator');
 
 const User = require('../../models/User');
 
@@ -14,7 +16,7 @@ router.post('/', [
     check('email', 'Please include a valid email').isEmail(),
     check(
         'password',
-        'Please enter a password with 6 or morth characters'
+        'Please enter a password with 6 or more characters'
     ).isLength({ min: 6 })
 ], 
 async (req, res) => {
@@ -56,8 +58,20 @@ async (req, res) => {
         await user.save();
 
         // Return jsonwebtoken
+        const payload = {
+            user: {
+                id: user.id
+            }
+        }
 
-        res.send('User registered');
+        jwt.sign(
+            payload, 
+            config.get('jwtSecret'),
+            { expiresIn: 360000 },
+            (err, token) => {
+                if (err) throw err;
+                res.json({ token });
+            });
 
     } catch(err) {
         console.error(err.message);
