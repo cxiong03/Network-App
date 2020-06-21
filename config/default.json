@@ -1,4 +1,6 @@
 {
     "mongoURI": "mongodb+srv://cxiong03:atlas123@network-apps-f763p.mongodb.net/<dbname>?retryWrites=true&w=majority",
-    "jwtSecret": "mysecrettoken"
+    "jwtSecret": "mysecrettoken",
+    "githubClientId": "3a4952edc787ac20891b",
+    "githubSecret": "80c021febe6b3091b3d62c4f4a529af13b0646a8"
 }
