@@ -10,17 +10,19 @@ const Dashboard = ({ getCurrentProfile, auth: {user}, profile: { profile, loadin
         getCurrentProfile();
     }, []);
 
-    return loading && profile === null ? <Spinner /> : <Fragment>
+    return loading && profile === null ? (<Spinner />) : (<Fragment>
         <h1 className='large text-primary'>Dashboard</h1>
         <p className='lead'>
-        <i className='fas fa-user'></i> Welcome { user && user.name }</p>
-        {profile !== null ? <Fragment>has</Fragment> : <Fragment>
+        <i className='fas fa-user' /> Welcome { user && user.name }</p>
+        {profile !== null ? (<Fragment>has</Fragment>) : (<Fragment>
             <p>You have not yet setup a profile, please add some info</p>
-            </Fragment>}
-        <Link to='/create-profile' className='btn btn-primary my-1'>
+            <Link to='/create-profile' className='btn btn-primary my-1'>
             Create Profile
-        </Link>
+            </Link>
+            </Fragment>)}
+        
     </Fragment>
+    );
 };
 
 Dashboard.propTypes = {
